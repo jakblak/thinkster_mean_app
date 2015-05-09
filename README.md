@@ -4,6 +4,8 @@ mean-stack-tutorial
 
 ## To Install
 > npm install
+
+# Run
 > node app.js
 
 Bower used for frontend package management.
