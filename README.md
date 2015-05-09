@@ -3,6 +3,7 @@ Flapper News Mean Stack Tutorial
 
 ## To Install
 npm install
+
 bower install
 
 # Run
