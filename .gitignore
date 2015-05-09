@@ -27,3 +27,6 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 .idea
+
+# Bower files
+public_html/bower_components
