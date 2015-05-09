@@ -1,9 +1,9 @@
-Flapper News
-mean-stack-tutorial
+Flapper News Mean Stack Tutorial
 =================== 
 
 ## To Install
-> npm install
+npm install
+bower install
 
 # Run
 > node app.js
