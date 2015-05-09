@@ -2,9 +2,11 @@ Flapper News
 mean-stack-tutorial
 =================== 
 
-My code for tuturial provided by https://thinkster.io/angulartutorial/mean-stack-tutorial/ . <br>
+## To Install
+> npm install
+> node app.js
 
-I also used bower for frontend package management.
+Bower used for frontend package management.
 
 What are MEAN stack components:
 
@@ -13,8 +15,7 @@ E - expressjs backend framework for NodeJs <br>
 A - AngularJs frontend framewrok <br>
 N - NodeJs server technology <br>
 
-It requries nodejs, npm and mongodb installed and running.
-
+Requires nodejs, and mongodb installed and running.
 
 ** Add a Link with a Title
 -- option to comment on and vote up 
