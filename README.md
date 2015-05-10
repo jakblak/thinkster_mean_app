@@ -9,6 +9,8 @@ bower install
 # Run
 > node app.js
 
+Make sure mongoDB is running
+
 Bower used for frontend package management.
 
 What are MEAN stack components:
