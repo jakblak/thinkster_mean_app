@@ -10,7 +10,6 @@
                                 url: '/home',
                                 templateUrl: '/home.html',
                                 controller: 'MainCtrl',
-                                //resolve=da poklicemo funkcijo se preden se nalozi state, namesto v kontrolerju:
                                 resolve: {
                                     postPromise: ['posts', function (posts) {
                                             return posts.getAll();
