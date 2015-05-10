@@ -16,7 +16,7 @@
         <!--inline templates names to .html datoteke:-->
         <script type="text/ng-template" id="/home.html">
             <div class="page-header">
-                <h1>MEAN stack Todo app example</h1>
+                <h1>MEAN Stack Todo App Example</h1>
             </div>
             <div ng-repeat="post in posts| orderBy:'-upvotes'">
                 <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)"></span>
@@ -32,7 +32,7 @@
                 <span>
                     <a href="#/posts/{{post._id}}"> ->comments({{post.comments.length}})</a>
                 </span>
-            </div>
+            </div> <div class="col-xs-6 col-lg-4">
             <form ng-submit="addPost()"
                 style="margin-top:30px;">
                 <h3>Add a new post</h3>
@@ -44,6 +44,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Post</button>
             </form>
+            </div>
         </script>
 
         <script type="text/ng-template" id="/posts.html">

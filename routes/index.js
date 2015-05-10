@@ -1,117 +1,114 @@
+var mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
 
-router.get('/', function (req, res) {
-    res.sendfile('./public_html/index.html');
-});
-
-
-var mongoose = require('mongoose');
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
 
-router.get('/posts', function (req, res, next) {
-    Post.find(function (err, posts) {
-        if (err) {
-            return next(err);
-        }
 
-        res.json(posts);
-    });
+
+/* GET home page. */
+router.get('/', function(req, res) {
+  res.render('index');
 });
 
-router.post('/posts', function (req, res, next) {
-    var post = new Post(req.body);
+router.get('/posts', function(req, res, next) {
+  Post.find(function(err, posts){
+    if(err){ 
+      return next(err);
+    }
 
-    post.save(function (err, post) {
-        if (err) {
-            return next(err);
-        }
-
-        res.json(post);
-    });
+    res.json(posts);
+  });
 });
 
-router.param('post', function (req, res, next, id) {
-    var query = Post.findById(id);
+router.post('/posts', function(req, res, next) {
+  var post = new Post(req.body);
 
-    query.exec(function (err, post) {
-        if (err) {
-            return next(err);
-        }
-        if (!post) {
-            return next(new Error("can't find post"));
-        }
+  post.save(function(err, post){
+    if(err){ return next(err); }
 
-        req.post = post;
-        return next();
-    });
+    res.json(post);
+  });
 });
 
-// Load comments from db by id
-router.param('comment', function (req, res, next, id) {
-    var query = Comment.findById(id);
+router.param('post', function(req, res, next, id) {
+  var query = Post.findById(id);
 
-    query.exec(function (err, comment) {
-        if (err) {
-            return next(err);
-        }
-        if (!comment) {
-            return next(new Error("can't find comment"));
-        }
+  query.exec(function (err, post){
+    if (err) { return next(err); }
+    if (!post) { return next(new Error("can't find post")); }
 
-        req.comment = comment;
-        return next();
-    });
+    req.post = post;
+    return next();
+  });
 });
 
+router.param('comment', function(req, res, next, id) {
+  var query = Comment.findById(id);
 
-router.get('/posts/:post', function (req, res) {
-    req.post.populate('comments', function (err, post) {
-        res.json(post);
-    });
-    
-});
-router.put('/posts/:post/upvote', function (req, res, next) {
-    req.post.upvote(function (err, post) {
-        if (err) {
-            return next(err);
-        }
+  query.exec(function (err, comment){
+    if (err) { return next(err); }
+    if (!comment) { return next(new Error("can't find comment")); }
 
-        res.json(post);
-    });
+    req.comment = comment;
+    return next();
+  });
 });
 
-// PUT route for upvoting comments
-router.put('/posts/:post/comments/:comment/upvote', function (req, res, next) {
-    req.comment.upvote(function (err, comment) {
-        if (err) {
-            return next(err);
-        }
-
-        res.json(comment);
-    });
+router.get('/posts/:post', function(req, res, next) {
+  req.post.populate('comments', function(err, post) {
+    res.json(post);
+  });
 });
 
-router.post('/posts/:post/comments', function (req, res, next) {
-    var comment = new Comment(req.body);
-    comment.post = req.post;
+router.put('/posts/:post/upvote', function(req, res, next) {
+  req.post.upvote(function(err, post){
+    if (err) { return next(err); }
 
-    comment.save(function (err, comment) {
-        if (err) {
-            return next(err);
-        }
+    res.json(post);
+  });
+});
 
-        req.post.comments.push(comment);
-        req.post.save(function (err, post) {
-            if (err) {
-                return next(err);
-            }
-            res.json(comment);
-        });
+router.put('/posts/:post/downvote', function(req, res, next) {
+  req.post.downvote(function(err, post){
+    if (err) { return next(err); }
+
+    res.json(post);
+  });
+});
+
+router.post('/posts/:post/comments', function(req, res, next) {
+  var comment = new Comment(req.body);
+  comment.post = req.post;
+
+  comment.save(function(err, comment){
+    if(err){ return next(err); }
+
+    req.post.comments.push(comment);
+    req.post.save(function(err, post) {
+      if(err){ return next(err); }
+
+      res.json(comment);
     });
+  });
+});
+
+router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
+  req.comment.upvote(function(err, comment){
+    if (err) { return next(err); }
+
+    res.json(comment);
+  });
+});
+
+router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
+  req.comment.downvote(function(err, comment){
+    if (err) { return next(err); }
+
+    res.json(comment);
+  });
 });
 
 module.exports = router;
