@@ -33,6 +33,5 @@ Requires nodejs, and mongodb installed and running.
 -- saves to: mongodb://localhost/news
 
 *Updates*:
-Branch 2: downvotes, regex for URL input, added comments
-(downV not works)
+Branch 2: downvotes, regex for URL input
 
