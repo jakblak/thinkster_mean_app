@@ -32,4 +32,7 @@ Requires nodejs, and mongodb installed and running.
 * Persistent
 -- saves to: mongodb://localhost/news
 
+*Updates*:
+Branch 2: downvotes, regex for URL input, added comments
+(downV not works)
 
